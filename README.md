@@ -1,0 +1,1 @@
+Crappy surf forecast app for Pebble smart watches using [pebble.js](http://developer.getpebble.com/docs/pebblejs/)
