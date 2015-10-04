@@ -60,6 +60,7 @@ var doAjax = function(spotName){
       // Success!
       console.log('Successfully fetched surf data!');
 
+      // at the moment we only get the swell details for the time right now
       var firstHour = response.data.weather[0].hourly[0];
 
       var height = firstHour.sigHeight_m;
