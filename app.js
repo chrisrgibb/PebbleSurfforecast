@@ -42,11 +42,19 @@ var getMainMenu = function(){
 
 var mainMenu = getMainMenu();
 
+function getSwellDirection(direction){
+  if(direction < 90 || direction > 270) {
+    return "N";
+  } else {
+    return "S";
+  }
+}
+
 
 var doAjax = function(spotName){
   var latlon = spots[spotName];
   
-  var URL = 'http://api.worldweatheronline.com/free/v2/marine.ashx?q=' + latlon + "&key=" +KEY + "&format=json";
+  var URL = 'http://api.worldweatheronline.com/premium/v1/marine.ashx?q=' + latlon + "&key=" +KEY + "&format=json";
   
   card.show();
   mainMenu.hide();
@@ -63,12 +71,15 @@ var doAjax = function(spotName){
       // at the moment we only get the swell details for the time right now
       var firstHour = response.data.weather[0].hourly[0];
 
-      var height = firstHour.sigHeight_m;
-      var period = firstHour.swellPeriod_secs;
-      var winddir = firstHour.winddir16Point;
+      var direction =  getSwellDirection(parseInt(firstHour.swellDir));
+      var height = "height : " + firstHour.sigHeight_m + "m " + direction +"\n";
+      var period = "period : " + firstHour.swellPeriod_secs + " secs\n";
+      var winddir = "wind : " + firstHour.winddir16Point;
+
+
 
       card.subtitle(spotName + ', ');
-      card.body("height : " + height + "m.\nperiod : " + period + " secs\nwind : " + winddir);
+      card.body(height + period + winddir);
 
 
     },
